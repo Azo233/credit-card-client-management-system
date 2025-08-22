@@ -14,7 +14,5 @@ public class ExternalApiException extends CreditCardManagementException {
         this.httpStatus = httpStatus;
     }
 
-    public int getHttpStatus() {
-        return httpStatus;
-    }
+
 }

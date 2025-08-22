@@ -13,7 +13,4 @@ public abstract  class CreditCardManagementException extends RuntimeException{
         this.errorCode = errorCode;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
 }
