@@ -1,6 +1,7 @@
 package com.card.validation.card_validation_service.controller;
 
 import com.card.validation.card_validation_service.dto.ClientValidationRequest;
+import com.card.validation.card_validation_service.dto.ErrorResponse;
 import com.card.validation.card_validation_service.dto.ValidationResponse;
 import com.card.validation.card_validation_service.service.ValidationService;
 import com.card.validation.card_validation_service.validation.ValidationResult;
@@ -11,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/validation")
@@ -23,23 +26,27 @@ public class ValidationController {
     }
 
     @PostMapping("/card-request")
-    public ResponseEntity<ValidationResponse> validateCardRequest(
+    public ResponseEntity<?> validateCardRequest(
             @RequestBody ClientValidationRequest request) {
-
-        logger.info("🔍 Validating request for: {} {}, OIB: {}",
-                request.getFirstName(), request.getLastName(), request.getOib());
 
         ValidationResult result = validationService.validate(request);
 
-        ValidationResponse response = new ValidationResponse(result.isValid(), result.getMessage());
-
         if (result.isValid()) {
             logger.info("Validation PASSED for OIB: {}", request.getOib());
+
+            ValidationResponse response = new ValidationResponse(result.isValid(), result.getMessage());
             return ResponseEntity.ok(response);
+
         } else {
             logger.warn("Validation FAILED for OIB: {} - {}",
                     request.getOib(), result.getMessage());
-            return ResponseEntity.badRequest().body(response);
+
+            ErrorResponse errorResponse = new ErrorResponse(
+                    "VALIDATION_ERROR",
+                    UUID.randomUUID().toString(),
+                    result.getMessage()
+            );
+            return ResponseEntity.badRequest().body(errorResponse);
         }
     }
 }

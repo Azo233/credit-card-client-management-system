@@ -1,49 +1,48 @@
 package com.example.Credit.Card.system.Credit_Card_Client_Management_System.services;
 
+import com.example.Credit.Card.system.Credit_Card_Client_Management_System.dto.ClientRequest;
+import com.example.Credit.Card.system.Credit_Card_Client_Management_System.dto.ErrorResponse;
 import com.example.Credit.Card.system.Credit_Card_Client_Management_System.dto.NewCardRequest;
 import com.example.Credit.Card.system.Credit_Card_Client_Management_System.dto.ValidationResponse;
-import com.example.Credit.Card.system.Credit_Card_Client_Management_System.exceptions.ExternalApiException;
-import com.example.Credit.Card.system.Credit_Card_Client_Management_System.exceptions.ExternalApiUnavailableException;
 import com.example.Credit.Card.system.Credit_Card_Client_Management_System.model.Client;
 import org.slf4j.Logger;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-@Service
-public class ExternalApiService {
+import java.util.UUID;
 
-    private static final Logger logger = LoggerFactory.getLogger(ExternalApiService.class);
+@Service
+public class CardValidationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CardValidationService.class);
 
     private final RestTemplate restTemplate;
 
     @Value("${app.validation-service.url:http://localhost:8082/api/v1/validation/card-request}")
     private String validationServiceUrl;
 
-    public ExternalApiService(RestTemplate restTemplate) {
+    public CardValidationService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public ValidationResponse cardValidation(Client client) {
-        logger.info("Submitting card request to card validation for client: {} {}, OIB: {}",
-                client.getFirstName(), client.getLastName(), client.getOib());
+    public ResponseEntity<?> cardValidation(ClientRequest request) {
+        logger.info("Submitting card request to card validation for request: {} {}, OIB: {}",
+                request.getFirstName(), request.getLastName(), request.getOib());
         try {
-            NewCardRequest request = mapClientToNewCardRequest(client);
 
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Type", "application/json");
             headers.set("Accept", "application/json");
             headers.set("User-Agent", "Credit-Card-Management-8081");
 
-            HttpEntity<NewCardRequest> httpEntity = new HttpEntity<>(request, headers);
+            HttpEntity<ClientRequest> httpEntity = new HttpEntity<>(request, headers);
 
             logger.debug("Sending request to external API: {}", validationServiceUrl);
 
@@ -55,46 +54,107 @@ public class ExternalApiService {
             );
 
             if (response.getStatusCode().is2xxSuccessful()) {
-                logger.debug("External API response: {}", response.getBody());
-                return response.getBody();
+                return ResponseEntity.status(HttpStatus.CREATED).body(response.getBody());
             } else {
-                logger.warn("Unexpected response status from external API: {} for OIB: {}",
-                        response.getStatusCode(), client.getOib());
-                throw new ExternalApiException(
-                        "Unexpected response status: " + response.getStatusCode(),
-                        response.getStatusCode().value()
+                ErrorResponse error = new ErrorResponse(
+                        "EXTERNAL_API_ERROR",
+                        UUID.randomUUID().toString(),
+                        "External service returned status: " + response.getStatusCode()
                 );
+                return ResponseEntity.status(response.getStatusCode()).body(error);
             }
 
         } catch (HttpClientErrorException e) {
             logger.error("Client error from external API for OIB {}: {} - Response: {}",
-                    client.getOib(), e.getMessage(), e.getResponseBodyAsString());
-            throw new ExternalApiException(
-                    "External API client error: " + e.getMessage(),
-                    e.getStatusCode().value(),
-                    e
-            );
+                    request.getOib(), e.getMessage(), e.getResponseBodyAsString());
+
+            String errorMessage = extractErrorMessage(e.getResponseBodyAsString());
+
+            if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
+                ErrorResponse error = new ErrorResponse(
+                        "BAD_REQUEST",
+                        UUID.randomUUID().toString(),
+                        errorMessage
+                );
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error); // 400
+
+            } else if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                ErrorResponse error = new ErrorResponse(
+                        "UNAUTHORIZED",
+                        UUID.randomUUID().toString(),
+                        "Unauthorized access to external service"
+                );
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error); // 401
+
+            } else if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                ErrorResponse error = new ErrorResponse(
+                        "NOT_FOUND",
+                        UUID.randomUUID().toString(),
+                        "External service endpoint not found"
+                );
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error); // 404
+
+            } else {
+                ErrorResponse error = new ErrorResponse(
+                        "BAD_REQUEST",
+                        UUID.randomUUID().toString(),
+                        errorMessage
+                );
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error); // 400
+            }
 
         } catch (HttpServerErrorException e) {
             logger.error("Server error from external API for OIB {}: {}",
-                    client.getOib(), e.getMessage());
-            throw new ExternalApiException(
-                    "External API server error: " + e.getMessage(),
-                    e.getStatusCode().value(),
-                    e
+                    request.getOib(), e.getMessage());
+
+            ErrorResponse error = new ErrorResponse(
+                    "INTERNAL_SERVER_ERROR",
+                    UUID.randomUUID().toString(),
+                    "Internal server error occurred"
             );
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error); // 500
 
         } catch (ResourceAccessException e) {
             logger.error("Connection error to external API for OIB {}: {}",
-                    client.getOib(), e.getMessage());
-            throw new ExternalApiUnavailableException(validationServiceUrl, e);
+                    request.getOib(), e.getMessage());
+
+            ErrorResponse error = new ErrorResponse(
+                    "INTERNAL_SERVER_ERROR",
+                    UUID.randomUUID().toString(),
+                    "Internal server error occurred"
+            );
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error); // 500
 
         } catch (Exception e) {
             logger.error("Unexpected error when calling external API for OIB {}: {}",
-                    client.getOib(), e.getMessage(), e);
-            throw new ExternalApiException("Unexpected error: " + e.getMessage(), 500, e);
+                    request.getOib(), e.getMessage(), e);
+
+            ErrorResponse error = new ErrorResponse(
+                    "INTERNAL_SERVER_ERROR",
+                    UUID.randomUUID().toString(),
+                    "Internal server error occurred"
+            );
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error); // 500
         }
     }
+
+    private String extractErrorMessage(String responseBody) {
+        try {
+            if (responseBody.contains("\"message\":\"")) {
+                int start = responseBody.indexOf("\"message\":\"") + 11;
+                int end = responseBody.indexOf("\"", start);
+                if (end > start) {
+                    return responseBody.substring(start, end);
+                }
+            }
+
+            return "Validation failed";
+        } catch (Exception ex) {
+            logger.warn("Could not parse error message from external API response: {}", ex.getMessage());
+            return "Invalid request";
+        }
+    }
+
 
     private NewCardRequest mapClientToNewCardRequest(Client client) {
         NewCardRequest request = new NewCardRequest();

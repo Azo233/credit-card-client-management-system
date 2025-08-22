@@ -1,18 +1,23 @@
-package com.example.Credit.Card.system.Credit_Card_Client_Management_System.dto;
+package com.card.validation.card_validation_service.dto;
 
 public class ErrorResponse {
     private String code;
+
     private String id;
+
     private String description;
 
+    // Default constructor
     public ErrorResponse() {}
 
+    // Constructor with all fields
     public ErrorResponse(String code, String id, String description) {
         this.code = code;
         this.id = id;
         this.description = description;
     }
 
+    // Getters and setters
     public String getCode() {
         return code;
     }
@@ -35,5 +40,14 @@ public class ErrorResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "ErrorResponse{" +
+                "code='" + code + '\'' +
+                ", id='" + id + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

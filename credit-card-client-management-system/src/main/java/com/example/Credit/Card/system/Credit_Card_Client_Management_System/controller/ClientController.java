@@ -1,9 +1,10 @@
 package com.example.Credit.Card.system.Credit_Card_Client_Management_System.controller;
 
 import com.example.Credit.Card.system.Credit_Card_Client_Management_System.dto.ClientRequest;
+import com.example.Credit.Card.system.Credit_Card_Client_Management_System.dto.ValidationResponse;
 import com.example.Credit.Card.system.Credit_Card_Client_Management_System.model.Client;
 import com.example.Credit.Card.system.Credit_Card_Client_Management_System.services.ClientService;
-import com.example.Credit.Card.system.Credit_Card_Client_Management_System.services.ExternalApiService;
+import com.example.Credit.Card.system.Credit_Card_Client_Management_System.services.CardValidationService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,21 +13,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/v1/clients")
 public class ClientController {
     private final ClientService clientService;
-    private final ExternalApiService externalApiService;
+    private final CardValidationService cardValidationService ;
 
-    public ClientController(ClientService clientService, ExternalApiService externalApiService) {
+    public ClientController(ClientService clientService, CardValidationService cardValidationService) {
         this.clientService = clientService;
-        this.externalApiService = externalApiService;
+        this.cardValidationService = cardValidationService;
     }
 
-    @GetMapping(name = "/getAll")
+    @GetMapping(name = "/get-all")
     public ResponseEntity<Page<Client>> getAllClients(
             @PageableDefault(size = 20) Pageable pageable) {
 
@@ -34,7 +32,7 @@ public class ClientController {
         return ResponseEntity.ok(clients);
     }
 
-    @GetMapping("/getByOib/{oib}")
+    @GetMapping("/oib-clinet/{oib}")
     public ResponseEntity<Client> getClientByOib(@PathVariable String oib) {
         Client client = clientService.getByOib(oib);
         return ResponseEntity.ok(client);
@@ -63,10 +61,9 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(updateClient);
     }
 
-    @PostMapping("/external")
-    public ResponseEntity<String> submitToExternalApi(@Valid @RequestBody Client client) {
-        externalApiService.submitCardRequest(client);
-        return ResponseEntity.ok("Data successfully submitted to external API");
+    @PostMapping("/card-request")
+    public ResponseEntity<?> submitToExternalApi( @RequestBody ClientRequest request) {
+        return cardValidationService.cardValidation(request);
     }
 
     @DeleteMapping("/delete/{oib}")
