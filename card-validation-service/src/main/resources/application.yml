@@ -1,0 +1,29 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: card-validation-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.example.validation: INFO
+  pattern:
+    console: "%d{HH:mm:ss} [VALIDATION-SERVICE] %-5level %logger{36} - %msg%n"
+
+validation:
+  service:
+    name: "Card Validation Service"
+    version: "1.0.0"
+    rules:
+      min-name-length: 2
+      oib-length: 11

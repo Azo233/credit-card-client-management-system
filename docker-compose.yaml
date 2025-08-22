@@ -1,6 +1,6 @@
 services:
   credit-card-app:
-    build: .
+    build: credit-card-client-management-system
     container_name: credit-card-client-management
     ports:
       - "8080:8080"

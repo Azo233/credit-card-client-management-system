@@ -47,9 +47,9 @@ spring:
       schema-locations: classpath:schema.sql
       continue-on-error: false
 
-      docker:
-        compose:
-          enabled: false rt
+      #docker:
+       # compose:
+        #  enabled: false rt
 
   kafka:
     bootstrap-servers: localhost:9092
@@ -97,5 +97,5 @@ logging:
 
     app:
       external-api:
-        url: https://api.creditCardSystem.com/v1/api/v1/card-reques
+        url: http://validation-service:8082/api/v1/validate/card-request
 

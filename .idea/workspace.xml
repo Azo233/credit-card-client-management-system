@@ -5,51 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a6d03b4-ce47-4d03-889c-267948eb5f07" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/spring-boot-ci.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/controller/ValidationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/dto/ClientValidationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/dto/ValidationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/service/ValidationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/validation/ValidationResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/CardValidationServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/CardValidationServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/data/creditcard_clients.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/data/creditcard_clients.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/logs/credit-card-app.log" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/logs/credit-card-app.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/controller/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/ExternalApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/ExternalApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/creditcard_clients.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/creditcard_clients.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/credit-card-app.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/credit-card-app.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/CreditCardClientManagementSystemApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/config/RestTemplateConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/controller/ClientController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/dto/ClientRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/dto/NewCardRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/ClientAlreadyExistsException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/ClientNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/ClientOperationNotAllowedException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/CreditCardManagementException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/DatabaseOperationException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/ExternalApiException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/ExternalApiUnavailableException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/InvalidCardStatusException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/exceptions/InvalidOibException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/model/CardStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/model/Client.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/repository/ClientRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/ClientService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/ExternalApiService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/CreditCardClientManagementSystemApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="31dmU5h71LxE4Nn4S4chM17kZct" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -57,14 +49,42 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.CardValidationServiceApplication.executor": "Run",
+    "Application.CreditCardClientManagementSystemApplication.executor": "Debug",
     "Maven.Credit-Card-Client-Management-System [install].executor": "Run",
     "Maven.card-validation-service [install].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/REST",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Projects/Credit-Card-Client-Management-System"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Projects\Credit-Card-Client-Management-System" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="CreditCardClientManagementSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.Credit.Card.system.Credit_Card_Client_Management_System.CreditCardClientManagementSystemApplication" />
+      <module name="Credit-Card-Client-Management-System" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.Credit.Card.system.Credit_Card_Client_Management_System.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CreditCardClientManagementSystemApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="7a6d03b4-ce47-4d03-889c-267948eb5f07" name="Changes" comment="" />

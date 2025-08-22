@@ -63,9 +63,8 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).body(updateClient);
     }
 
-    @PostMapping("/external/{oib}")
-    public ResponseEntity<String> submitToExternalApi(@PathVariable String oib) {
-        Client client = clientService.getByOib(oib);
+    @PostMapping("/external")
+    public ResponseEntity<String> submitToExternalApi(@Valid @RequestBody Client client) {
         externalApiService.submitCardRequest(client);
         return ResponseEntity.ok("Data successfully submitted to external API");
     }
