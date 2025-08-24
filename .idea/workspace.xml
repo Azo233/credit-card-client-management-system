@@ -5,26 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a6d03b4-ce47-4d03-889c-267948eb5f07" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/card-validation-service/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/config/KafkaConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/events/CardStatusEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/card-validation-service/src/test/java/com/card/validation/card_validation_service/service/ValidationServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/credit-card-client-management-system/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/dto/CardCreationResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/test/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/CardValidationServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/test/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/ClientServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/card-validation-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/service/ValidationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/service/ValidationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/validation/ValidationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/validation/ValidationResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/config/KafkaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/config/KafkaConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/controller/ValidationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/controller/ValidationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/dto/ErrorResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/dto/ErrorResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/events/CardStatusEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/events/CardStatusEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/data/creditcard_clients.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/data/creditcard_clients.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/logs/credit-card-app.log" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/logs/credit-card-app.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/CardValidationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/main/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/CardValidationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/creditcard_clients.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/creditcard_clients.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/credit-card-app.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/credit-card-app.log" afterDir="false" />
     </list>
@@ -58,6 +46,7 @@
     "Application.CardValidationServiceApplication.executor": "Run",
     "Application.CreditCardClientManagementSystemApplication.executor": "Run",
     "JUnit.Credit_Card_Client_Management_System in Credit-Card-Client-Management-System.executor": "Coverage",
+    "JUnit.service in card-validation-service.executor": "Coverage",
     "JUnit.services in Credit-Card-Client-Management-System.executor": "Coverage",
     "Maven.Credit-Card-Client-Management-System [install].executor": "Run",
     "Maven.card-validation-service [install].executor": "Run",
@@ -82,7 +71,7 @@
       <recent name="com.example.Credit.Card.system.Credit_Card_Client_Management_System.services" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.service in card-validation-service">
+  <component name="RunManager" selected="Application.CreditCardClientManagementSystemApplication">
     <configuration name="CardValidationServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.card.validation.card_validation_service.CardValidationServiceApplication" />
       <module name="card-validation-service" />
@@ -135,11 +124,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CreditCardClientManagementSystemApplication" />
+        <item itemvalue="Application.CardValidationServiceApplication" />
         <item itemvalue="JUnit.service in card-validation-service" />
         <item itemvalue="JUnit.services in Credit-Card-Client-Management-System" />
         <item itemvalue="JUnit.Credit_Card_Client_Management_System in Credit-Card-Client-Management-System" />
-        <item itemvalue="Application.CreditCardClientManagementSystemApplication" />
-        <item itemvalue="Application.CardValidationServiceApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -167,5 +156,6 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Credit_Card_Client_Management_System$services_in_Credit_Card_Client_Management_System.ic" NAME="services in Credit-Card-Client-Management-System Coverage Results" MODIFIED="1756045683801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Credit_Card_Client_Management_System$Credit_Card_Client_Management_System_in_Credit_Card_Client_Management_System.ic" NAME="Credit_Card_Client_Management_System in Credit-Card-Client-Management-System Coverage Results" MODIFIED="1756045301888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Credit_Card_Client_Management_System$service_in_card_validation_service.ic" NAME="service in card-validation-service Coverage Results" MODIFIED="1756046040586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

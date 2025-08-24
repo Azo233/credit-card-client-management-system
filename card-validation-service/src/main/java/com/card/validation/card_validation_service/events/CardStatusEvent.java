@@ -20,7 +20,6 @@ public class CardStatusEvent {
         this.timestamp = timestamp;
     }
 
-
     public String getRequestId() {
         return requestId;
     }

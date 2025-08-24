@@ -95,13 +95,28 @@ external:
     url: http://localhost:8082
 
 ---
-# Docker profile
 spring:
   config:
     activate:
       on-profile: docker
   kafka:
-    bootstrap-servers: kafka:9092  # Docker container name
+    bootstrap-servers: kafka:29092  # Use internal port for container communication
     consumer:
       group-id: credit-card-client-group
-      key-deserializer: org.apache.kafka.common.seria
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+external:
+  card-validation-service:
+    url: http://card-validation-service:8082  # Docker container name
+
+logging:
+  level:
+    com.example.creditcard: INFO
+  pattern:
+    console: "%d{HH:mm:ss} [CLIENT-MANAGEMENT] %-5level %logger{36} - %msg%n"

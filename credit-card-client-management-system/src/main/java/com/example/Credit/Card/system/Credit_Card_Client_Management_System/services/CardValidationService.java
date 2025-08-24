@@ -25,7 +25,7 @@ public class CardValidationService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${app.validation-service.url:http://localhost:8082/api/v1/validation/card-request}")
+    @Value("${external.card-validation-service.url}")
     private String validationServiceUrl;
 
     public CardValidationService(RestTemplate restTemplate) {
@@ -45,10 +45,11 @@ public class CardValidationService {
 
             HttpEntity<ClientRequest> httpEntity = new HttpEntity<>(request, headers);
 
-            logger.debug("Sending request to external API: {}", validationServiceUrl);
+            String fullUrl = validationServiceUrl + "/api/v1/card-request";
+            logger.debug("Sending request to external API: {}", fullUrl);
 
             ResponseEntity<ValidationResponse> response = restTemplate.exchange(
-                    validationServiceUrl,
+                    fullUrl,
                     HttpMethod.POST,
                     httpEntity,
                     ValidationResponse.class
@@ -77,7 +78,7 @@ public class CardValidationService {
                         UUID.randomUUID().toString(),
                         errorMessage
                 );
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error); // 400
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 
             } else if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 ErrorResponse error = new ErrorResponse(
@@ -85,7 +86,7 @@ public class CardValidationService {
                         UUID.randomUUID().toString(),
                         "Unauthorized access to external service"
                 );
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error); // 401
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
 
             } else if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 ErrorResponse error = new ErrorResponse(
@@ -93,7 +94,7 @@ public class CardValidationService {
                         UUID.randomUUID().toString(),
                         "External service endpoint not found"
                 );
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error); // 404
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 
             } else {
                 ErrorResponse error = new ErrorResponse(
@@ -101,7 +102,7 @@ public class CardValidationService {
                         UUID.randomUUID().toString(),
                         errorMessage
                 );
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error); // 400
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
             }
 
         } catch (HttpServerErrorException e) {
@@ -113,7 +114,7 @@ public class CardValidationService {
                     UUID.randomUUID().toString(),
                     "Internal server error occurred"
             );
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error); // 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
 
         } catch (ResourceAccessException e) {
             logger.error("Connection error to external API for OIB {}: {}",
@@ -124,7 +125,7 @@ public class CardValidationService {
                     UUID.randomUUID().toString(),
                     "Internal server error occurred"
             );
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error); // 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
 
         } catch (Exception e) {
             logger.error("Unexpected error when calling external API for OIB {}: {}",
@@ -135,7 +136,7 @@ public class CardValidationService {
                     UUID.randomUUID().toString(),
                     "Internal server error occurred"
             );
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error); // 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
 

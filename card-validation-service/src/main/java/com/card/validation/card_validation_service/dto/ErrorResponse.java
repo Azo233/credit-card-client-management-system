@@ -7,17 +7,14 @@ public class ErrorResponse {
 
     private String description;
 
-    // Default constructor
     public ErrorResponse() {}
 
-    // Constructor with all fields
     public ErrorResponse(String code, String id, String description) {
         this.code = code;
         this.id = id;
         this.description = description;
     }
 
-    // Getters and setters
     public String getCode() {
         return code;
     }
