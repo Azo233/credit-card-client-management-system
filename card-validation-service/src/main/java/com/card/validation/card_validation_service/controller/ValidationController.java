@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/validation")
+@RequestMapping("/api/v1")
 public class ValidationController {
     private static final Logger logger = LoggerFactory.getLogger(ValidationController.class);
     private final ValidationService validationService;

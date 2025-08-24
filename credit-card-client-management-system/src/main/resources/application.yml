@@ -25,7 +25,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update  # create-drop, update, validate, none
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -39,17 +39,12 @@ spring:
         order_updates: true
     defer-datasource-initialization: true
 
-
   sql:
     init:
       mode: never
       data-locations: classpath:data.sql
       schema-locations: classpath:schema.sql
       continue-on-error: false
-
-      #docker:
-       # compose:
-        #  enabled: false rt
 
   kafka:
     bootstrap-servers: localhost:9092
@@ -61,7 +56,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.trusted.packages: "com.example.creditcard"
+        spring.json.trusted.packages: "*"
 
 server:
   port: 8081
@@ -95,7 +90,33 @@ logging:
   file:
     name: logs/credit-card-app.log
 
-    app:
-      external-api:
-        url: http://validation-service:8082/api/v1/validate/card-request
+external:
+  card-validation-service:
+    url: http://localhost:8082
 
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  kafka:
+    bootstrap-servers: kafka:29092  # Use internal port for container communication
+    consumer:
+      group-id: credit-card-client-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+external:
+  card-validation-service:
+    url: http://card-validation-service:8082  # Docker container name
+
+logging:
+  level:
+    com.example.creditcard: INFO
+  pattern:
+    console: "%d{HH:mm:ss} [CLIENT-MANAGEMENT] %-5level %logger{36} - %msg%n"
