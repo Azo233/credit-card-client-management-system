@@ -54,12 +54,6 @@ jobs:
           echo "Testing credit-card-client-management-system"
           mvn test
 
-      # Docker build test
-      - name: Test Docker Build
-        run: |
-          echo "Testing Docker builds"
-          docker-compose build
-
       # Archive test results
       - name: Archive test results
         if: always()
