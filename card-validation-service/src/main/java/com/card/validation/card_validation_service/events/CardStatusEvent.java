@@ -12,10 +12,11 @@ public class CardStatusEvent {
     public CardStatusEvent() {
     }
 
-    public CardStatusEvent(String requestId, String oib, String cardStatus, String message, LocalDateTime timestamp) {
+    public CardStatusEvent(String requestId, String oib, String cardStatus, String cardStatus1, String message, LocalDateTime timestamp) {
         this.requestId = requestId;
         this.oib = oib;
         this.cardStatus = cardStatus;
+        this.cardStatus = cardStatus1;
         this.message = message;
         this.timestamp = timestamp;
     }

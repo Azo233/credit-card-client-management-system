@@ -36,7 +36,7 @@ class ClientServiceTest {
         testClient = new Client();
         testClient.setOib("12345678901");
         testClient.setFirstName("Ivo");
-        testClient.setLastName("Ivić");
+        testClient.setLastName("Ivic");
         testClient.setStatus(CardStatus.APPROVED);
 
         pageable = PageRequest.of(0, 10);
@@ -89,7 +89,7 @@ class ClientServiceTest {
         Client updatedClient = new Client();
         updatedClient.setOib("12345678901");
         updatedClient.setFirstName("Pero");
-        updatedClient.setLastName("Perić");
+        updatedClient.setLastName("Peric");
         updatedClient.setStatus(CardStatus.APPROVED);
 
         when(clientRepository.findByOib("12345678901")).thenReturn(Optional.of(existingClient));
@@ -98,7 +98,7 @@ class ClientServiceTest {
         Client result = clientService.updateClinet(updatedClient);
 
         assertEquals("Pero", result.getFirstName());
-        assertEquals("Perić", result.getLastName());
+        assertEquals("Peric", result.getLastName());
         assertEquals(CardStatus.APPROVED, result.getStatus());
         verify(clientRepository).findByOib("12345678901");
         verify(clientRepository).save(existingClient);

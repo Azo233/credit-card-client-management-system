@@ -1,0 +1,71 @@
+name: Microservices CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Build and test card-validation-service
+      - name: Build Card Validation Service
+        working-directory: ./card-validation-service
+        run: |
+          echo "Building card-validation-service"
+          mvn clean package -DskipTests
+
+      - name: Test Card Validation Service
+        working-directory: ./card-validation-service
+        run: |
+          echo "Testing card-validation-service"
+          mvn test
+
+      # Build and test credit-card-client-management-system
+      - name: Build Client Management Service
+        working-directory: ./credit-card-client-management-system
+        run: |
+          echo "Building credit-card-client-management-system"
+          mvn clean package -DskipTests
+
+      - name: Test Client Management Service
+        working-directory: ./credit-card-client-management-system
+        run: |
+          echo "Testing credit-card-client-management-system"
+          mvn test
+
+      # Archive test results
+      - name: Archive test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            card-validation-service/target/surefire-reports/
+            credit-card-client-management-system/target/surefire-reports/
+
+      # Success notification
+      - name: Build Success
+        if: success()
+        run: |
+          echo "All builds and tests passed successfully!"

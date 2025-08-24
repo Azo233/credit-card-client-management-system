@@ -3,6 +3,7 @@ package com.card.validation.card_validation_service.service;
 import com.card.validation.card_validation_service.dto.ClientValidationRequest;
 import com.card.validation.card_validation_service.events.CardStatusEvent;
 import com.card.validation.card_validation_service.validation.ValidationResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -13,7 +14,9 @@ public class ValidationService {
 
     private static final Logger logger = LoggerFactory.getLogger(ValidationService.class);
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    @Autowired(required = false)
+    private KafkaTemplate<String, Object> kafkaTemplate;
+    private boolean kafkaAvailable = true;
 
     private static final String CARD_STATUS_TOPIC = "card.status.update";
 
@@ -48,18 +51,44 @@ public class ValidationService {
     }
 
     private void publishCardStatus(String requestId, String oib, String status, String message) {
+        if (kafkaTemplate == null || !kafkaAvailable) {
+            logger.info("[KAFKA SIMULATION] Would publish to topic '{}': requestId={}, oib={}, status={}, message={}",
+                    CARD_STATUS_TOPIC, requestId, oib, status, message);
+
+            String eventJson = String.format(
+                    "{\"requestId\":\"%s\",\"oib\":\"%s\",\"cardStatus\":\"%s\",\"message\":\"%s\",\"timestamp\":\"%s\"}",
+                    requestId, oib, status, message, java.time.LocalDateTime.now()
+            );
+            logger.info("[EVENT SIMULATION] {}", eventJson);
+            return;
+        }
+
         try {
+            kafkaTemplate.partitionsFor(CARD_STATUS_TOPIC);
+
             CardStatusEvent event = new CardStatusEvent();
             event.setCardStatus(status);
             event.setMessage(message);
             event.setOib(oib);
             event.setRequestId(requestId);
+            event.setTimestamp(java.time.LocalDateTime.now());
 
-            kafkaTemplate.send(CARD_STATUS_TOPIC, oib, event);
-            logger.info("Published card status '{}' for OIB: {}", status, oib);
+            kafkaTemplate.send(CARD_STATUS_TOPIC, oib, event)
+                    .whenComplete((result, ex) -> {
+                        if (ex == null) {
+                            logger.info("Successfully published card status '{}' for OIB: {}", status, oib);
+                        } else {
+                            logger.error("Failed to publish card status: {}", ex.getMessage());
+                            kafkaAvailable = false;
+                        }
+                    });
 
         } catch (Exception e) {
-            logger.error("Failed to publish card status for OIB: {} - {}", oib, e.getMessage());
+            logger.warn("Kafka not available, falling back to simulation mode: {}", e.getMessage());
+            kafkaAvailable = false;
+
+            logger.info("[KAFKA FALLBACK] Simulating publish: topic={}, key={}, status={}, message={}",
+                    CARD_STATUS_TOPIC, oib, status, message);
         }
     }
 
