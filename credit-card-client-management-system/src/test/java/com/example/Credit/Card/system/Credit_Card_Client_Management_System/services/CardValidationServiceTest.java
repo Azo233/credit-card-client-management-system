@@ -40,7 +40,7 @@ class CardValidationServiceTest {
         testValidationResponse = new ValidationResponse();
         testValidationResponse.setMessage("Validation successful");
 
-        validationServiceUrl = "http://localhost:8082/api/v1/validation/card-request";
+        validationServiceUrl = "http://localhost:8082";
 
         ReflectionTestUtils.setField(cardValidationService, "validationServiceUrl", validationServiceUrl);
     }
@@ -51,7 +51,7 @@ class CardValidationServiceTest {
                 ResponseEntity.status(HttpStatus.OK).body(testValidationResponse);
 
         when(restTemplate.exchange(
-                eq(validationServiceUrl),
+                eq(validationServiceUrl + "/api/v1/card-request"),
                 eq(HttpMethod.POST),
                 any(HttpEntity.class),
                 eq(ValidationResponse.class)
@@ -64,7 +64,7 @@ class CardValidationServiceTest {
         assertEquals(testValidationResponse, result.getBody());
 
         verify(restTemplate).exchange(
-                eq(validationServiceUrl),
+                eq(validationServiceUrl + "/api/v1/card-request"),
                 eq(HttpMethod.POST),
                 any(HttpEntity.class),
                 eq(ValidationResponse.class)

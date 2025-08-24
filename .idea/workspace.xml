@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7a6d03b4-ce47-4d03-889c-267948eb5f07" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/events/CardStatusEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/events/CardStatusEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/service/ValidationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/card-validation-service/src/main/java/com/card/validation/card_validation_service/service/ValidationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/.github/workflows/spring-boot-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/spring-boot-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credit-card-client-management-system/src/test/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/CardValidationServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/credit-card-client-management-system/src/test/java/com/example/Credit/Card/system/Credit_Card_Client_Management_System/services/CardValidationServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +37,8 @@
   "keyToString": {
     "Application.CardValidationServiceApplication.executor": "Run",
     "Application.CreditCardClientManagementSystemApplication.executor": "Run",
+    "JUnit.CardValidationServiceTest.executor": "Run",
+    "JUnit.ClientServiceTest.executor": "Coverage",
     "JUnit.Credit_Card_Client_Management_System in Credit-Card-Client-Management-System.executor": "Coverage",
     "JUnit.ValidationServiceTest.executor": "Coverage",
     "JUnit.service in card-validation-service.executor": "Coverage",
@@ -66,7 +66,7 @@
       <recent name="com.example.Credit.Card.system.Credit_Card_Client_Management_System.services" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ClientServiceTest">
+  <component name="RunManager" selected="JUnit.CardValidationServiceTest">
     <configuration name="CardValidationServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.card.validation.card_validation_service.CardValidationServiceApplication" />
       <module name="card-validation-service" />
@@ -89,6 +89,21 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardValidationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Credit-Card-Client-Management-System" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.Credit.Card.system.Credit_Card_Client_Management_System.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.Credit.Card.system.Credit_Card_Client_Management_System.services" />
+      <option name="MAIN_CLASS_NAME" value="com.example.Credit.Card.system.Credit_Card_Client_Management_System.services.CardValidationServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -123,21 +138,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="service in card-validation-service" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="card-validation-service" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/card-validation-service/src/test/java/com/card/validation/card_validation_service/service" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CardValidationServiceTest" />
         <item itemvalue="JUnit.ClientServiceTest" />
         <item itemvalue="JUnit.ValidationServiceTest" />
         <item itemvalue="Application.CreditCardClientManagementSystemApplication" />
         <item itemvalue="Application.CardValidationServiceApplication" />
-        <item itemvalue="JUnit.service in card-validation-service" />
       </list>
     </recent_temporary>
   </component>
@@ -154,6 +161,12 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Credit_Card_Client_Management_System$services_in_Credit_Card_Client_Management_System.ic" NAME="services in Credit-Card-Client-Management-System Coverage Results" MODIFIED="1756045683801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Credit_Card_Client_Management_System$Credit_Card_Client_Management_System_in_Credit_Card_Client_Management_System.ic" NAME="Credit_Card_Client_Management_System in Credit-Card-Client-Management-System Coverage Results" MODIFIED="1756045301888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Credit_Card_Client_Management_System$ValidationServiceTest.ic" NAME="ValidationServiceTest Coverage Results" MODIFIED="1756058778528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.card.validation.card_validation_service.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Credit_Card_Client_Management_System$ClientServiceTest.ic" NAME="ClientServiceTest Coverage Results" MODIFIED="1756058840499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.example.Credit.Card.system.Credit_Card_Client_Management_System.services.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/Credit_Card_Client_Management_System$service_in_card_validation_service.ic" NAME="service in card-validation-service Coverage Results" MODIFIED="1756046040586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>
