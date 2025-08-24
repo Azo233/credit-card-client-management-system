@@ -35,6 +35,7 @@ public class CardValidationService {
     public ResponseEntity<?> cardValidation(ClientRequest request) {
         logger.info("Submitting card request to card validation for request: {} {}, OIB: {}",
                 request.getFirstName(), request.getLastName(), request.getOib());
+
         try {
 
             HttpHeaders headers = new HttpHeaders();
