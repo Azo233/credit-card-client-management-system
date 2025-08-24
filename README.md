@@ -8,8 +8,8 @@ Integracija s Card Validation Service
 Card Validation Service (8082)
 
 Validacija klijentskih podataka
-Business logic za kartica requests
-Kafka producer za status eventi
+Business logic za zahtjeve za izdavanje kartica
+Kafka producer za evente o statusima
 
 Tehnologije
 
